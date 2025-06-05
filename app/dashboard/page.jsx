@@ -4,7 +4,16 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowLeft, Download, RefreshCw, Settings } from "lucide-react";
+import {
+  ArrowLeft,
+  Download,
+  RefreshCw,
+  Settings,
+  Building2,
+  Users,
+  MapPin,
+  Calendar,
+} from "lucide-react";
 import { FinancialTrends } from "@/components/financial-trends";
 import { ProfitMargins } from "@/components/profit-margins";
 import { CustomerEfficiency } from "@/components/customer-efficiency";
@@ -90,6 +99,152 @@ export default function DashboardPage() {
         </div>
       </nav>
       <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+        {/* Business Profile Section */}
+        <div className="mb-8">
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-xl font-semibold">
+                Business Profile
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-4">
+                  <div className="flex items-start space-x-3">
+                    <Building2 className="h-5 w-5 text-gray-500 mt-1" />
+                    <div>
+                      <h3 className="text-sm font-medium text-gray-500">
+                        Company
+                      </h3>
+                      <p className="text-lg font-semibold text-gray-900">
+                        {analysis.business_profile?.business_name}
+                      </p>
+                      <p className="text-sm text-gray-600">
+                        {analysis.business_profile?.industry} •{" "}
+                        {analysis.business_profile?.sub_industry}
+                      </p>
+                      {analysis.business_profile?.description && (
+                        <p className="text-sm text-gray-600 mt-2">
+                          {analysis.business_profile.description}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                  <div className="flex items-start space-x-3">
+                    <MapPin className="h-5 w-5 text-gray-500 mt-1" />
+                    <div>
+                      <h3 className="text-sm font-medium text-gray-500">
+                        Location
+                      </h3>
+                      <p className="text-gray-900">
+                        {analysis.business_profile?.location}
+                      </p>
+                      {analysis.business_profile?.market_position && (
+                        <p className="text-sm text-gray-600 mt-1">
+                          {analysis.business_profile.market_position}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                </div>
+                <div className="space-y-4">
+                  <div className="flex items-start space-x-3">
+                    <Users className="h-5 w-5 text-gray-500 mt-1" />
+                    <div>
+                      <h3 className="text-sm font-medium text-gray-500">
+                        Employees
+                      </h3>
+                      <p className="text-gray-900">
+                        {analysis.business_profile?.employee_count?.toLocaleString()}
+                      </p>
+                      {analysis.business_profile?.owner_name && (
+                        <p className="text-sm text-gray-600 mt-1">
+                          {analysis.business_profile.owner_name}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                  <div className="flex items-start space-x-3">
+                    <Calendar className="h-5 w-5 text-gray-500 mt-1" />
+                    <div>
+                      <h3 className="text-sm font-medium text-gray-500">
+                        Founded
+                      </h3>
+                      <p className="text-gray-900">
+                        {analysis.business_profile?.founded_year}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Key Products Section */}
+              {analysis.business_profile?.key_products &&
+                analysis.business_profile.key_products.length > 0 && (
+                  <div className="mt-6 pt-6 border-t">
+                    <h3 className="text-sm font-medium text-gray-500 mb-3">
+                      Key Products
+                    </h3>
+                    <div className="flex flex-wrap gap-2">
+                      {analysis.business_profile.key_products.map(
+                        (product, index) => (
+                          <span
+                            key={index}
+                            className="px-3 py-1 bg-gray-100 rounded-full text-sm text-gray-700"
+                          >
+                            {product}
+                          </span>
+                        )
+                      )}
+                    </div>
+                  </div>
+                )}
+
+              {/* Stock Information Section */}
+              {analysis.stockData?.mainCompany && (
+                <div className="mt-6 pt-6 border-t">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h3 className="text-sm font-medium text-gray-500">
+                        Stock Information
+                      </h3>
+                      <p className="text-lg font-semibold text-gray-900">
+                        {analysis.stockData.mainCompany.symbol}
+                      </p>
+                      <p className="text-sm text-gray-600">
+                        {analysis.stockData.mainCompany.exchDisp}
+                      </p>
+                    </div>
+                    {analysis.stockData.competitors &&
+                      analysis.stockData.competitors.length > 0 && (
+                        <div>
+                          <h3 className="text-sm font-medium text-gray-500 mb-2">
+                            Key Competitors
+                          </h3>
+                          <div className="flex space-x-4">
+                            {analysis.stockData.competitors.map(
+                              (competitor, index) =>
+                                competitor && (
+                                  <div key={index} className="text-center">
+                                    <p className="text-sm font-medium text-gray-900">
+                                      {competitor.symbol}
+                                    </p>
+                                    <p className="text-xs text-gray-500">
+                                      {competitor.exchDisp}
+                                    </p>
+                                  </div>
+                                )
+                            )}
+                          </div>
+                        </div>
+                      )}
+                  </div>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </div>
+
         {/* Overview Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <Card>
