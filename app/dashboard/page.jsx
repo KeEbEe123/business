@@ -78,7 +78,7 @@ export default function DashboardPage() {
               </Link>
               <div className="h-6 w-px bg-gray-300"></div>
               <h1 className="text-xl font-semibold text-gray-900">
-                Business Analytics Dashboard
+                StartupAssistor
               </h1>
             </div>
             <div className="flex items-center space-x-3">
